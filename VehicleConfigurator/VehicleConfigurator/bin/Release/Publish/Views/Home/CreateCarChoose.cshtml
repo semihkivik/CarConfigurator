@@ -1,0 +1,139 @@
+﻿@model VehicleConfigurator.Models.PackageListModel
+@{
+    ViewBag.Title = "CreateCarChoose";
+}
+
+@using (Html.BeginForm("ViewPackage", "Home", FormMethod.Post))
+{
+    @Html.HiddenFor(s=>s.CarId)
+    @Html.HiddenFor(s=>s.PackageTypeId)
+    <input type="submit" value="Oluştur Ve Fiyat Al" class="btn btn-success" />
+    <div class="row">
+        <div class="col-sm-12" align="center">
+
+            <div id='show-me'>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#body" aria-controls="home" role="tab" data-toggle="tab">Gövde</a></li>
+                    <li role="presentation"><a href="#motor" aria-controls="profile" role="tab" data-toggle="tab">Motor</a></li>
+                    <li role="presentation"><a href="#vites" aria-controls="messages" role="tab" data-toggle="tab">Şanzıman / Vites</a></li>
+                    <li role="presentation"><a href="#renk" aria-controls="settings" role="tab" data-toggle="tab">Renk</a></li>
+                    <li role="presentation"><a href="#doseme" aria-controls="settings" role="tab" data-toggle="tab">Döşeme</a></li>
+                    <li role="presentation"><a href="#opsiyon" aria-controls="settings" role="tab" data-toggle="tab">Opsiyon</a></li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="body">
+                        <img style="float:left" src="~/Content/Image/body.jpg" height="300" width="300"/>
+
+                        @foreach (var item in Model.BodyList)
+                        {
+                            @Html.RadioButtonFor(s => s.VehicleFeaturesBodyTypeId, item.VehicleFeaturesId, new { @class = "form-control", @required = "" })
+                            <label>@item.FeaturesName</label>
+                        }
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="motor">
+                        <img style="float:left" src="~/Content/Image/engine.jpg" height="300" width="300" />
+
+                        @foreach (var item in Model.EngineList)
+                        {
+                            @Html.RadioButtonFor(s => s.VehicleFeaturesEngineTypeId, item.VehicleFeaturesId, new { @class = "form-control", @required = "" })
+                            <label>@item.FeaturesName</label>
+                        }
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="vites">
+                        <img style="float:left" src="~/Content/Image/gearbox.jpg" height="300" width="300" />
+
+                        @foreach (var item in Model.GearboxList)
+                        {
+                            @Html.RadioButtonFor(s => s.VehicleFeaturesGearboxTypeId, item.VehicleFeaturesId, new { @class = "form-control", @required = "" })
+                            <label>@item.FeaturesName</label>
+                        }
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="renk">
+                        <img style="float:left" src="~/Content/Image/color.png" height="300" width="300" />
+                        @foreach (var item in Model.ColorList.Take(4))
+                        {
+                    <div class="form-group">
+                        @Html.RadioButtonFor(s => s.VehicleFeaturesColorTypeId, item.VehicleFeaturesId, new { @class = "form-control", @required = "" })
+                        <label>@item.FeaturesName</label>
+                    </div>
+                        }
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="doseme">
+                        <img style="float:left" src="~/Content/Image/floor.jpg" height="300" width="300" />
+
+                        @foreach (var item in Model.FloorList)
+                        {
+                            @Html.RadioButtonFor(s => s.VehicleFeaturesFloorTypeId, item.VehicleFeaturesId, new { @class = "form-control", @required = "" })
+                            <label>@item.FeaturesName</label>
+                        }
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="opsiyon">
+                        <img style="float:left" src="~/Content/Image/option.jpg" height="300" width="300" />
+                        @for (int i = 0; i < Model.OptionCheckBoxList.Count; i++)
+                        {
+                            @Html.CheckBoxFor(s => Model.OptionCheckBoxList[i].IsChecked, new { @class = "form-control" })
+                            @Html.HiddenFor(s => Model.OptionCheckBoxList[i].Value)
+                            <label>@Model.OptionCheckBoxList[i].Text</label>
+                        }
+                    </div>
+                </div>
+
+            </div>
+          
+ 
+
+        </div>
+    </div>
+}
+    <script>
+        $(document).ready(function () {
+            $("#watch-me").click(function () {
+                $("#show-me:hidden").show('slow');
+                $("#show-me-two").hide();
+                $("#show-me-three").hide();
+            });
+            $("#watch-me").click(function () {
+                if ($('watch-me').prop('checked') === false) {
+                    $('#show-me').hide();
+                }
+            });
+
+            $("#see-me").click(function () {
+                $("#show-me-two:hidden").show('slow');
+                $("#show-me").hide();
+                $("#show-me-three").hide();
+            });
+            $("#see-me").click(function () {
+                if ($('see-me-two').prop('checked') === false) {
+                    $('#show-me-two').hide();
+                }
+            });
+
+
+
+
+
+
+
+            $("#look-me").click(function () {
+                $("#show-me-three:hidden").show('slow');
+                $("#show-me").hide();
+                $("#show-me-two").hide();
+            });
+            $("#look-me").click(function () {
+                if ($('see-me-three').prop('checked') === false) {
+                    $('#show-me-three').hide();
+                }
+            });
+
+        });
+
+
+    </script>

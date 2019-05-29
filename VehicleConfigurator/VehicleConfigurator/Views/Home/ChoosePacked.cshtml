@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "ChoosePacked";
+}
+@{ 
+    VehicleConfigurator.Cars cars = (VehicleConfigurator.Cars)ViewBag.car;
+}
+<section class="our-webcoderskull padding-lg">
+    <div class="container">
+        <div class="row heading heading-icon">
+        </div>
+        <h2>Model Adı:@cars.CarName</h2>
+        @using (Html.BeginForm("CreateCarChoose", "Home", FormMethod.Post))
+        {
+            @Html.Hidden("carsId", (int)ViewBag.carId)
+            <ul class="row">
+                <li class="col-12 col-md-6 col-lg-3">
+
+                    <div class="cnt-block equal-hight" style="height: 349px;">
+                        <figure><img src="~/Content/Image/standart.png" class="img-responsive" alt=""></figure>
+                        <h3><a href="#">Standart </a></h3>
+                        <p>Standart Paket</p>
+                        @Html.RadioButton("packageType", 0, new { @class = "form-controll", @checked = "" })
+                        @Html.ActionLink("Keşfet", "Discovery", "Home", new { @id = ViewBag.carId, stPackage = 0 }, new { @class = "btn btn-success" })
+                        <ul class="follow-us clearfix">
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="col-12 col-md-6 col-lg-3">
+                    <div class="cnt-block equal-hight" style="height: 349px;">
+                        <figure><img src="~/Content/Image/special.png" class="img-responsive" alt=""></figure>
+                        <h3><a href="#">Special</a></h3>
+                        <p>Special Paket</p>
+                        @Html.RadioButton("packageType", 1, new { @class = "form-controll" })
+                        @Html.ActionLink("Keşfet", "Discovery", "Home", new { @id = ViewBag.carId, stPackage = 1 }, new { @class = "btn btn-success" })
+                        <ul class="follow-us clearfix">
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <input type="submit" value="Seçiniz" class="btn btn-success col-md-6 text-center" />
+        }
+    </div>
+</section>

@@ -1,0 +1,50 @@
+﻿@model List<Cars>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<h2>Index</h2>
+
+
+@Html.ActionLink("Araç Ekle","CreateCar","Admin",null,new {@class="btn btn-success" })
+
+
+<table class="table table-bordered table-condensed table-responsive table-striped">
+    <tr>
+        <th>Araç Resimi</th>
+        <th>Araç Adı</th>
+        <th>Araç Modeli</th>
+        <th>Ücreti</th>
+        <th>Durum</th>
+        <th>Sil</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        if (item.IsActive)
+        {
+            <tr>
+                <td><img height="200"width="200" src="~/Content/Image/@item.CarImagePath" /></td>
+                <td>@item.CarName</td>
+                <td>@item.CarModel</td>
+                <td>@item.Price</td>
+                <td>@Html.ActionLink("Pasif", "PassiveCar", "Admin", new { @id = item.CarsId }, new { @class = "btn btn-success" })</td>
+                <td>@Html.ActionLink("Sil", "RemoveCar", "Admin", new { @id = item.CarsId }, new { @class = "btn btn-danger" })</td>
+            </tr>
+        }
+        else
+        {
+            <tr class="bg-warning">
+                <td><img  height="200"width="200" src="~/Content/Image/@item.CarImagePath" /></td>
+                <td>@item.CarName</td>
+                <td>@item.CarModel</td>
+                <td>@item.Price</td>
+                <td>@Html.ActionLink("Aktif", "ActiveCar", "Admin", new { @id = item.CarsId }, new { @class = "btn btn-danger" })</td>
+                <td>@Html.ActionLink("Sil", "RemoveCar", "Admin", new { @id = item.CarsId }, new { @class = "btn btn-danger" })</td>
+            </tr>
+        }
+
+    }
+</table>
+<td></td>
+

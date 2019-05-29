@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="VehicleFeaturesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AdminUser">
+    <Key>
+      <PropertyRef Name="AdminUserId" />
+    </Key>
+    <Property Name="AdminUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="Cars">
+    <Key>
+      <PropertyRef Name="CarsId" />
+    </Key>
+    <Property Name="CarsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CarName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CarModel" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Int32" Nullable="false" />
+    <Property Name="CarImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__CarsId__6B24EA82" FromRole="Cars" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Dealer">
+    <Key>
+      <PropertyRef Name="DealerId" />
+    </Key>
+    <Property Name="DealerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DealerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DealerEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DealerPhone" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__DealerId__6C190EBB" FromRole="Dealer" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="OrderDetails">
+    <Key>
+      <PropertyRef Name="OrderDetailsId" />
+    </Key>
+    <Property Name="OrderDetailsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderId" Type="Int32" />
+    <Property Name="VehicleFeaturesId" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__OrderDeta__Order__6A30C649" FromRole="OrderDetails" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="OrdersId" />
+    </Key>
+    <Property Name="OrdersId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClientMail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DealerId" Type="Int32" />
+    <Property Name="CarsId" Type="Int32" />
+    <Property Name="IsStandartPackage" Type="Boolean" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Cars" Relationship="Self.FK__Orders__CarsId__6B24EA82" FromRole="Orders" ToRole="Cars" />
+    <NavigationProperty Name="Dealer" Relationship="Self.FK__Orders__DealerId__6C190EBB" FromRole="Orders" ToRole="Dealer" />
+    <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__Order__6A30C649" FromRole="Orders" ToRole="OrderDetails" />
+  </EntityType>
+  <EntityType Name="VehicleFeatures">
+    <Key>
+      <PropertyRef Name="VehicleFeaturesId" />
+    </Key>
+    <Property Name="VehicleFeaturesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FeaturesName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FeaturesPrice" Type="Int32" Nullable="false" />
+    <Property Name="IsStandartPackage" Type="Boolean" Nullable="false" />
+    <Property Name="VehicleFeaturesTypeId" Type="Int32" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="VehicleFeaturesType" Relationship="Self.FK__VehicleFe__Vehic__5441852A" FromRole="VehicleFeatures" ToRole="VehicleFeaturesType" />
+  </EntityType>
+  <EntityType Name="VehicleFeaturesType">
+    <Key>
+      <PropertyRef Name="VehicleFeaturesTypeId" />
+    </Key>
+    <Property Name="VehicleFeaturesTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="VehicleFeatures" Relationship="Self.FK__VehicleFe__Vehic__5441852A" FromRole="VehicleFeaturesType" ToRole="VehicleFeatures" />
+  </EntityType>
+  <Association Name="FK__Orders__CarsId__6B24EA82">
+    <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="CarsId" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="CarsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__DealerId__6C190EBB">
+    <End Role="Dealer" Type="Self.Dealer" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dealer">
+        <PropertyRef Name="DealerId" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="DealerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrderDeta__Order__6A30C649">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
+    <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="OrdersId" />
+      </Principal>
+      <Dependent Role="OrderDetails">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__VehicleFe__Vehic__5441852A">
+    <End Role="VehicleFeaturesType" Type="Self.VehicleFeaturesType" Multiplicity="1" />
+    <End Role="VehicleFeatures" Type="Self.VehicleFeatures" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VehicleFeaturesType">
+        <PropertyRef Name="VehicleFeaturesTypeId" />
+      </Principal>
+      <Dependent Role="VehicleFeatures">
+        <PropertyRef Name="VehicleFeaturesTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="VehicleConfiguratorEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AdminUser" EntityType="Self.AdminUser" />
+    <EntitySet Name="Cars" EntityType="Self.Cars" />
+    <EntitySet Name="Dealer" EntityType="Self.Dealer" />
+    <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" />
+    <EntitySet Name="VehicleFeatures" EntityType="Self.VehicleFeatures" />
+    <EntitySet Name="VehicleFeaturesType" EntityType="Self.VehicleFeaturesType" />
+    <AssociationSet Name="FK__Orders__CarsId__6B24EA82" Association="Self.FK__Orders__CarsId__6B24EA82">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__DealerId__6C190EBB" Association="Self.FK__Orders__DealerId__6C190EBB">
+      <End Role="Dealer" EntitySet="Dealer" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrderDeta__Order__6A30C649" Association="Self.FK__OrderDeta__Order__6A30C649">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__VehicleFe__Vehic__5441852A" Association="Self.FK__VehicleFe__Vehic__5441852A">
+      <End Role="VehicleFeaturesType" EntitySet="VehicleFeaturesType" />
+      <End Role="VehicleFeatures" EntitySet="VehicleFeatures" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

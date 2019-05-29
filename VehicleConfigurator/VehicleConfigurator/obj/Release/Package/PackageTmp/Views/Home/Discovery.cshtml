@@ -1,0 +1,89 @@
+﻿@using VehicleConfigurator.Helper
+@{
+    ViewBag.Title = "Discovery";
+}
+@{ 
+    var cars = (Cars)ViewBag.cars;
+    var features = (List<VehicleFeatures>)ViewBag.features;
+}
+
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="lead">Araç Detayları</h1>
+        <img src="~/Content/Image/@cars.CarImagePath" />
+        <p>@cars.CarName</p>
+        <p>@cars.CarModel</p>
+        <p><small>Fiyat:@cars.Price</small></p>
+        @if (ViewBag.stPackage == 0)
+        {
+            <p>Special  Paket</p>
+        }
+        else
+        {
+            <p>Standart Paket</p>
+        }
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Gövde Paketleri </h2>
+            @foreach (var item in features.Where(s => s.VehicleFeaturesTypeId == (int)VehicleFeaturesTypeList.BodyList))
+            {
+                <label>@item.FeaturesName</label>
+                <label>Fiyat:@item.FeaturesPrice</label>
+                <hr />
+            }
+
+        </div>
+        <div class="col-md-6">
+            <h2>Motor Paketleri </h2>
+            @foreach (var item in features.Where(s => s.VehicleFeaturesTypeId == (int)VehicleFeaturesTypeList.EngineList))
+            {
+                <label>@item.FeaturesName</label>
+                <label>Fiyat:@item.FeaturesPrice</label>
+                <hr />
+            }
+        </div>
+        <div class="col-md-6">
+            <h2>Şanzıman Paketleri </h2>
+            @foreach (var item in features.Where(s => s.VehicleFeaturesTypeId == (int)VehicleFeaturesTypeList.GearboxList))
+            {
+                <label>@item.FeaturesName</label>
+                <label>Fiyat:@item.FeaturesPrice</label>
+                <hr />
+            }
+        </div>
+        <div class="col-md-6">
+            <h2>Renk Paketleri </h2>
+            @foreach (var item in features.Where(s => s.VehicleFeaturesTypeId == (int)VehicleFeaturesTypeList.ColorList))
+            {
+                <label>@item.FeaturesName</label>
+                <label>Fiyat:@item.FeaturesPrice</label>
+                <hr />
+            }
+        </div>
+        <div class="col-md-6">
+            <h2>Döşeme Paketleri </h2>
+            @foreach (var item in features.Where(s => s.VehicleFeaturesTypeId == (int)VehicleFeaturesTypeList.ColorList))
+            {
+                <label>@item.FeaturesName</label>
+                <label>Fiyat:@item.FeaturesPrice</label>
+                <hr />
+            }
+        </div>
+        <div class="col-md-6">
+            <h2>Opsiyon Paketleri </h2>
+            @foreach (var item in features.Where(s => s.VehicleFeaturesTypeId == (int)VehicleFeaturesTypeList.OptionList))
+            {
+                <label>@item.FeaturesName</label>
+                <label>Fiyat:@item.FeaturesPrice</label>
+                <hr />
+            }
+        </div>
+    </div>
+</div>
+
+
+

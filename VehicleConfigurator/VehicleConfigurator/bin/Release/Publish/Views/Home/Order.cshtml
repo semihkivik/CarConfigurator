@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Bayiye Rapor Gönder";
+}
+
+
+@using (Html.BeginForm("Order", "Home", FormMethod.Post))
+{
+    <br />
+    <div class="form-group">
+        <div class="form-group">
+            <label>Bayi Seçiniz:</label>
+            @Html.DropDownList("dealersId", new SelectList(ViewBag.DealerList, "DealerId", "DealerName"), "Seçiniz", new { @class = "form-control",required="" })
+        </div>
+
+        <div class="form-group">
+            <label>Ad Soyad:</label>
+            <input type="text" name="fullname" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label>E-posta:</label>
+            <input type="text" name="email" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label>Telefon:</label>
+            <input type="text" name="phone" class="form-control" required />
+        </div>
+    </div>
+    <input type="submit" value="Gönder" class="btn btn-info">
+}

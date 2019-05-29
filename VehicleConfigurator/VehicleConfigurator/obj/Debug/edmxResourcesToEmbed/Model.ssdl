@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="VehicleFeaturesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AdminUser">
+    <Key>
+      <PropertyRef Name="AdminUserId" />
+    </Key>
+    <Property Name="AdminUserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cars">
+    <Key>
+      <PropertyRef Name="CarsId" />
+    </Key>
+    <Property Name="CarsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CarName" Type="nvarchar(max)" />
+    <Property Name="CarModel" Type="nvarchar" MaxLength="100" />
+    <Property Name="Price" Type="int" Nullable="false" />
+    <Property Name="CarImagePath" Type="nvarchar(max)" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Dealer">
+    <Key>
+      <PropertyRef Name="DealerId" />
+    </Key>
+    <Property Name="DealerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DealerName" Type="nvarchar" MaxLength="100" />
+    <Property Name="DealerEmail" Type="nvarchar" MaxLength="100" />
+    <Property Name="DealerPhone" Type="nvarchar" MaxLength="200" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="OrderDetails">
+    <Key>
+      <PropertyRef Name="OrderDetailsId" />
+    </Key>
+    <Property Name="OrderDetailsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderId" Type="int" />
+    <Property Name="VehicleFeaturesId" Type="int" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="OrdersId" />
+    </Key>
+    <Property Name="OrdersId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClientMail" Type="nvarchar" MaxLength="100" />
+    <Property Name="DealerId" Type="int" />
+    <Property Name="CarsId" Type="int" />
+    <Property Name="IsStandartPackage" Type="bit" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="VehicleFeatures">
+    <Key>
+      <PropertyRef Name="VehicleFeaturesId" />
+    </Key>
+    <Property Name="VehicleFeaturesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FeaturesName" Type="nvarchar(max)" />
+    <Property Name="FeaturesPrice" Type="int" Nullable="false" />
+    <Property Name="IsStandartPackage" Type="bit" Nullable="false" />
+    <Property Name="VehicleFeaturesTypeId" Type="int" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="VehicleFeaturesType">
+    <Key>
+      <PropertyRef Name="VehicleFeaturesTypeId" />
+    </Key>
+    <Property Name="VehicleFeaturesTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="500" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__OrderDeta__Order__6A30C649">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
+    <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="OrdersId" />
+      </Principal>
+      <Dependent Role="OrderDetails">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__CarsId__6B24EA82">
+    <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="CarsId" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="CarsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__DealerId__6C190EBB">
+    <End Role="Dealer" Type="Self.Dealer" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dealer">
+        <PropertyRef Name="DealerId" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="DealerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__VehicleFe__Vehic__5441852A">
+    <End Role="VehicleFeaturesType" Type="Self.VehicleFeaturesType" Multiplicity="1" />
+    <End Role="VehicleFeatures" Type="Self.VehicleFeatures" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VehicleFeaturesType">
+        <PropertyRef Name="VehicleFeaturesTypeId" />
+      </Principal>
+      <Dependent Role="VehicleFeatures">
+        <PropertyRef Name="VehicleFeaturesTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="VehicleFeaturesModelStoreContainer">
+    <EntitySet Name="AdminUser" EntityType="Self.AdminUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cars" EntityType="Self.Cars" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Dealer" EntityType="Self.Dealer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VehicleFeatures" EntityType="Self.VehicleFeatures" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VehicleFeaturesType" EntityType="Self.VehicleFeaturesType" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__OrderDeta__Order__6A30C649" Association="Self.FK__OrderDeta__Order__6A30C649">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__CarsId__6B24EA82" Association="Self.FK__Orders__CarsId__6B24EA82">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__DealerId__6C190EBB" Association="Self.FK__Orders__DealerId__6C190EBB">
+      <End Role="Dealer" EntitySet="Dealer" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__VehicleFe__Vehic__5441852A" Association="Self.FK__VehicleFe__Vehic__5441852A">
+      <End Role="VehicleFeaturesType" EntitySet="VehicleFeaturesType" />
+      <End Role="VehicleFeatures" EntitySet="VehicleFeatures" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

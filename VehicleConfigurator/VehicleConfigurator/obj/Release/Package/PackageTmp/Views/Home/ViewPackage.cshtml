@@ -1,0 +1,70 @@
+﻿@model VehicleConfigurator.Models.ViewPackageModel
+@{
+    ViewBag.Title = "ViewPackage";
+}
+
+
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="lead">Araç Detayları</h1>
+        <img src="~/Content/Image/@Model.Car.CarImagePath" />
+        <p>@Model.Car.CarName</p>
+        <p>@Model.Car.CarModel</p>
+        <p><small>Toplam Fiyat:@Model.TotalPrice</small></p>
+        @if (Model.PackageTypeId == 1)
+        {
+            <p>Standart Paket</p>
+        }
+        else
+        {
+            <p>Special  Paket</p>
+        }
+        @Html.ActionLink("Randevu Al","Order","Home",null,new {@class="btn btn-success" })
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>@Model.SelectedBodyValue.VehicleFeaturesType.Name Bilgileri</h2>
+            <label>@Model.SelectedBodyValue.FeaturesName</label>
+            <label>Fiyat:@Model.SelectedBodyValue.FeaturesPrice</label>
+        </div>
+        <div class="col-md-6">
+            <h2>@Model.SelectedEngineValue.VehicleFeaturesType.Name Bilgileri</h2>
+            <label>@Model.SelectedEngineValue.FeaturesName</label>
+            <label>Fiyat:@Model.SelectedEngineValue.FeaturesPrice</label>
+        </div>
+        <div class="col-md-6">
+            <h2>@Model.SelectedColorValue.VehicleFeaturesType.Name Bilgileri</h2>
+            <label>@Model.SelectedColorValue.FeaturesName</label>
+            <label>Fiyat:@Model.SelectedColorValue.FeaturesPrice</label>
+        </div>
+        <div class="col-md-6">
+            <h2> @Model.SelectedGearboxValue.VehicleFeaturesType.Name Bilgileri</h2>
+            <label>@Model.SelectedGearboxValue.FeaturesName</label>
+            <label>Fiyat:@Model.SelectedGearboxValue.FeaturesPrice</label>
+        </div>
+        <div class="col-md-6">
+            <h2>@Model.SelectedFloorValue.VehicleFeaturesType.Name Bilgileri</h2>
+            <label>@Model.SelectedFloorValue.FeaturesName</label>
+            <label>Fiyat:@Model.SelectedFloorValue.FeaturesPrice</label>
+        </div>
+        <div class="col-md-6">
+            @if (Model.SelectedOptionsList != null)
+            {
+                <h2>@Model.SelectedOptionsList.Take(1).SingleOrDefault().VehicleFeaturesType.Name Bilgileri</h2>
+                foreach (var item in Model.SelectedOptionsList)
+                {
+                    <label>@item.FeaturesName</label>
+                    <label>Fiyat:@item.FeaturesPrice</label>
+                    <hr />
+                }
+            }
+        </div>
+    </div>
+</div>
+
+
+
+ 
